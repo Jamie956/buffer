@@ -4,13 +4,19 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.Test;
 
 public class PoiDemo {
-
+	
 	@Test
 	public void write() throws IOException {
 		HSSFWorkbook workbook = new HSSFWorkbook();
@@ -50,26 +56,28 @@ public class PoiDemo {
 		workbook.close();
 	}
 
-//	public void read() {
-//		File xlsFile = new File("poi.xls");
-//		Workbook workbook = WorkbookFactory.create(xlsFile);
-//		int sheetCount = workbook.getNumberOfSheets();
-//		for (int i = 0; i < sheetCount; i++) {
-//			Sheet sheet = workbook.getSheetAt(i);
-//			int rows = sheet.getLastRowNum() + 1;
-//			Row tmp = sheet.getRow(0);
-//			if (tmp == null) {
-//				continue;
-//			}
-//			int cols = tmp.getPhysicalNumberOfCells();
-//			for (int row = 0; row < rows; row++) {
-//				Row r = sheet.getRow(row);
-//				for (int col = 0; col < cols; col++) {
-//					System.out.printf("%10s", r.getCell(col).getStringCellValue());
-//				}
-//				System.out.println();
-//			}
-//		}
-//	}
+	@Test
+	public void read() throws EncryptedDocumentException, InvalidFormatException, IOException {
+		File xlsFile = new File("poi.xls");
+		Workbook workbook = WorkbookFactory.create(xlsFile);
+		int sheetCount = workbook.getNumberOfSheets();
+		for (int i = 0; i < sheetCount; i++) {
+			Sheet sheet = workbook.getSheetAt(i);
+			int rows = sheet.getLastRowNum() + 1;
+			Row tmp = sheet.getRow(0);
+			if (tmp == null) {
+				continue;
+			}
+			int cols = tmp.getPhysicalNumberOfCells();
+			for (int row = 0; row < rows; row++) {
+				Row r = sheet.getRow(row);
+				for (int col = 0; col < cols; col++) {
+					System.out.printf("%10s", r.getCell(col).getStringCellValue());
+				}
+				System.out.println();
+			}
+		}
+	}
+
 
 }
