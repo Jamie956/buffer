@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -75,5 +78,25 @@ public class HelloGson {
 		List<String> stringList = gson.fromJson(jsonArray, new TypeToken<List<String>>() {}.getType());
 		System.out.println(stringList);
 	}
-
+	
+	@Test
+	public void test9() {//str json to map
+		String strr = "{0=\"hello\",1=\"world\"}";
+		java.lang.reflect.Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+		Gson gson = new Gson();
+		Map<Integer, String> map = gson.fromJson(strr, type);
+		System.out.println(map.get("0"));
+		System.out.println(map.get("1"));
+	}
+	
+	@Test
+	public void test10() {//str json to map
+		String strr = "{0:\"hello\",1:\"world\"}";
+		java.lang.reflect.Type type = new TypeToken<HashMap<String, String>>() {}.getType();
+		Gson gson = new Gson();
+		Map<Integer, String> map = gson.fromJson(strr, type);
+		System.out.println(map.get("0"));
+		System.out.println(map.get("1"));
+	}
+	
 }
