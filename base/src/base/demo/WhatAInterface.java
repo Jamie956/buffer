@@ -1,6 +1,6 @@
 package base.demo;
 
-public class Interface {
+public class WhatAInterface {
 	public static void main(String[] args) {
 		Zookeeper zookeeper = new Zookeeper();
 		Rabbit rabbit = new Rabbit();
