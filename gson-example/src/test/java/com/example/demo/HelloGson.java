@@ -1,9 +1,9 @@
 package com.example.demo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.junit.Test;
 
@@ -28,19 +28,17 @@ public class HelloGson {
 	}
 
 	@Test
-	public void test2() {// pojo to json
-		Gson gson = new Gson();
+	public void entityToJson() {
 		User user = new User("tomcat", 24);
-		String jsonObject = gson.toJson(user); // {"name":"tomcat","age":24}
-		System.out.println(jsonObject);
+		
+		String jsonStr = new Gson().toJson(user); // {"name":"tomcat","age":24}
+		System.out.println(jsonStr);
 	}
 
 	@Test
-	public void test3() {// json to pojo
-		Gson gson = new Gson();
-		String jsonString = "{\"name\":\"lala\",\"age\":24}";
-		User user = gson.fromJson(jsonString, User.class);
-		System.out.println(user.toString());
+	public void jsonToEntity() {
+		User user = new Gson().fromJson("{\"name\":\"Yina\",\"age\":24}", User.class);
+		System.out.println(user);
 	}
 
 	@Test
@@ -72,9 +70,10 @@ public class HelloGson {
 
 	@Test
 	public void test7() {// arr to list
-		Gson gson = new Gson();
 		String jsonArray = "[\"Android\",\"Java\",\"PHP\"]";
 //		String[] strings = gson.fromJson(jsonArray, String[].class);
+		
+		Gson gson = new Gson();
 		List<String> stringList = gson.fromJson(jsonArray, new TypeToken<List<String>>() {}.getType());
 		System.out.println(stringList);
 	}
@@ -97,6 +96,43 @@ public class HelloGson {
 		Map<Integer, String> map = gson.fromJson(strr, type);
 		System.out.println(map.get("0"));
 		System.out.println(map.get("1"));
+	}
+	
+	@Test
+	public void mapToJson() {
+		Map<String, String> userMap = new HashMap<String, String>();
+		userMap.put("id", "01");
+		userMap.put("firstname", "Jamie");
+		userMap.put("lastname", "Zhou");
+		
+		System.out.println(userMap);
+		String userJson = new Gson().toJson(userMap);
+		System.out.println(userJson);
+	}
+	
+	@Test
+	public void nestListToJson() {
+		List<Map<String, String>> userList = new ArrayList<Map<String, String>>();
+		
+		Map<String, String> userMap1 = new HashMap<String, String>();
+		userMap1.put("id", "01");
+		userMap1.put("firstname", "Jamie");
+		userMap1.put("lastname", "Zhou");
+		
+		Map<String, String> userMap2 = new HashMap<String, String>();
+		userMap2.put("id", "02");
+		userMap2.put("firstname", "John");
+		userMap2.put("lastname", "Nash");
+		
+		userList.add(userMap1);
+		userList.add(userMap2);
+		
+		for (Map<String, String> userMap : userList) {
+			System.out.println(userMap);
+		}
+		
+		String userJson = new Gson().toJson(userList);
+		System.out.println(userJson);
 	}
 	
 }
