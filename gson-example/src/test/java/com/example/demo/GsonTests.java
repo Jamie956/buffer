@@ -38,7 +38,7 @@ public class GsonTests {
 	}
 
 	@Test
-	public void strToArr() {
+	public void arrStrToArr() {
 		String[] arr = new Gson().fromJson("[\"Android\",\"Java\",\"PHP\"]", String[].class);//Android, Java, PHP
 		for (int i = 0; i < arr.length; i++) {
 			System.out.println(arr[i]);
@@ -46,7 +46,7 @@ public class GsonTests {
 	}
 
 	@Test
-	public void strToList() {
+	public void arrStrToList() {
 		List<String> list = new Gson().fromJson("[\"Android\",\"Java\",\"PHP\"]", new TypeToken<List<String>>() {}.getType());//[Android, Java, PHP]
 		System.out.println(list);
 	}
@@ -117,6 +117,13 @@ public class GsonTests {
 	public void nestJsonToEntity() {
 		Order order = new Gson().fromJson("{\"id\":\"666\",\"name\":\"newBee\",\"itemlist\":[{\"id\":\"01\",\"name\":\"item01\"},{\"id\":\"02\",\"name\":\"item02\"}]}", Order.class);
 		System.out.println(order);
+	}
+	
+	@Test
+	public void jsonArrToEntity() {
+		String nestJson = "[{\"id\":\"09\",\"name\":\"item09\"}, {\"id\":\"10\",\"name\":\"item10\"}, {\"id\":\"11\",\"name\":\"item11\"}]";
+		List<Item> itemlist = new Gson().fromJson(nestJson, new TypeToken<List<Item>>() {}.getType());
+		System.out.println(itemlist);//[Item [id=09, name=item09], Item [id=10, name=item10], Item [id=11, name=item11]]
 	}
 	
 }
