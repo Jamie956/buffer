@@ -1,2 +1,1 @@
-# javac
-hi java c
+well
