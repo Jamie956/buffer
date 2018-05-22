@@ -1,10 +1,19 @@
-// var load = require('bundle-loader!./a.bundle.js');
-var load = require('./hello.bundle.js');
+var a = require('./pages/a.js');
+var b = require('./pages/b.js');
+var c = require('./c.js');
 
-console.log(load);
+$('#btn_a').click(function () {
+  a(function (content) {
+    console.log(content)
+  });
+})
 
-load(function(file) {
-  document.open();
-  document.write('<h1>' + file + '</h1>');
-  document.close();
-});
+$('#btn_b').click(function () {
+  b(function (content) {
+    console.log(content)
+  });
+})
+
+$('#btn_c').click(function () {
+    console.log(c)
+})
